@@ -588,6 +588,26 @@ display(matriz_gpt_normalizada.round(4))
 print("Pesos dos critérios (GPT):")
 display(tabela_pesos_gpt.round(5))
 
+# CONSISTÊNCIA DA MATRIZ AHP-GPT
+
+# Autovalor máximo da matriz de comparação
+autovalores_gpt = np.linalg.eigvals(matriz_gpt.to_numpy())
+lambda_max_gpt = np.max(autovalores_gpt.real)
+
+# Índice de Consistência (CI)
+n = len(criterios_ahp)
+ci_gpt = (lambda_max_gpt - n) / (n - 1)
+
+# Razão de Consistência (CR)
+ri = 1.49  # Índice Aleatório de Saaty para n = 10
+cr_gpt = ci_gpt / ri
+
+print("=== CONSISTÊNCIA AHP-GPT ===")
+print(f"Autovalor máximo (λmax): {lambda_max_gpt:.4f}")
+print(f"Índice de Consistência (CI): {ci_gpt:.5f}")
+print(f"Razão de Consistência (CR): {cr_gpt:.5f}")
+print(f"Consistência aceitável (CR < 0,10): {cr_gpt < 0.10}")
+
 # Organizar os pesos na ordem de criterios_ranking
 
 pesos_para_ranking_gpt = pesos_gpt.reindex(criterios_ranking)
@@ -913,6 +933,26 @@ display(matriz_claude_normalizada.round(4))
 
 print("Pesos dos critérios (Claude):")
 display(tabela_pesos_claude.round(5))
+
+# CONSISTÊNCIA DA MATRIZ AHP-CLAUDE
+
+# Autovalor máximo da matriz de comparação
+autovalores_claude = np.linalg.eigvals(matriz_claude.to_numpy())
+lambda_max_claude = np.max(autovalores_claude.real)
+
+# Índice de Consistência (CI)
+n = len(criterios_ahp)
+ci_claude = (lambda_max_claude - n) / (n - 1)
+
+# Razão de Consistência (CR)
+ri = 1.49  # Índice Aleatório de Saaty para n = 10
+cr_claude = ci_claude / ri
+
+print("=== CONSISTÊNCIA AHP-CLAUDE ===")
+print(f"Autovalor máximo (λmax): {lambda_max_claude:.4f}")
+print(f"Índice de Consistência (CI): {ci_claude:.5f}")
+print(f"Razão de Consistência (CR): {cr_claude:.5f}")
+print(f"Consistência aceitável (CR < 0,10): {cr_claude < 0.10}")
 
 # Organizar os pesos na ordem de criterios_ranking
 
